@@ -4,5 +4,6 @@ Ce dépôt contient l’ensemble de mes travaux pratiques (TP) réalisés dans l
 
 ## 🧾 Contenu du dépôt
 
-- `TP2/` – Exercice compta
+- `TP2/` – Création de tables & Insertion de données
 - `TP3/` – Requêtes basiques
+- `TP4/` – Requêtes avancées
