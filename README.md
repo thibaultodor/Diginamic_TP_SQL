@@ -4,4 +4,4 @@ Ce dépôt contient l’ensemble de mes travaux pratiques (TP) réalisés dans l
 
 ## 🧾 Contenu du dépôt
 
-- `tp02/` – Exercice compta
+- `TP2/` – Exercice compta
