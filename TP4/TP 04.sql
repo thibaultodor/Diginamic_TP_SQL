@@ -91,3 +91,46 @@ FROM bon b
          JOIN article a ON c.ID_ART = a.ID
 WHERE b.DATE_CMDE BETWEEN '2019-04-01 00:00:00' AND '2019-04-30 23:59:59'
 GROUP BY b.ID;
+
+-- HARD MODE --
+-- a. Sélectionnez les articles qui ont une désignation identique mais des fournisseurs différents (indice : réaliser une auto-jointure i.e. de la table avec elle-même)
+SELECT a1.ID          AS ID_ARTICLE_1,
+       a1.DESIGNATION AS DESIGNATION,
+       a1.ID_FOU      AS FOURNISSEUR_1,
+       a2.ID          AS ID_ARTICLE_2,
+       a2.ID_FOU      AS FOURNISSEUR_2
+FROM article a1
+         JOIN article a2
+              ON a1.DESIGNATION = a2.DESIGNATION
+                  AND a1.ID_FOU != a2.ID_FOU
+                  AND a1.ID > a2.ID;
+
+-- b. Calculez les dépenses en commandes mois par mois (indice : utilisation des fonctions MONTH et YEAR)
+SELECT YEAR(b.DATE_CMDE)   AS ANNEE,
+       MONTH(b.DATE_CMDE)  AS MOIS,
+       SUM(c.QTE * a.PRIX) AS TOTAL_MOIS
+FROM bon b
+         JOIN compo c ON b.ID = c.ID_BON
+         JOIN article a ON c.ID_ART = a.ID
+GROUP BY YEAR(b.DATE_CMDE), MONTH(b.DATE_CMDE)
+ORDER BY annee, mois;
+
+-- c. Sélectionnez les bons de commandes sans article (indice : utilisation de EXISTS)
+SELECT b.*
+FROM bon b
+WHERE NOT EXISTS (SELECT *
+                  FROM compo c
+                  WHERE c.ID_BON = b.ID);
+
+-- d. Calculez le prix moyen des bons de commande par fournisseur.
+SELECT f.ID,
+       f.NOM,
+       AVG(bons.TOTAL_BON) MOYENNE_BONS
+FROM (SELECT b.ID_FOU               ID_fou,
+             SUM(c.QTE * a.PRIX) AS TOTAL_BON
+      FROM bon b
+               JOIN compo c ON b.ID = c.ID_BON
+               JOIN article a ON c.ID_ART = a.ID
+      GROUP BY b.ID, b.ID_FOU) bons
+         JOIN fournisseur f ON bons.ID_fou = f.ID
+GROUP BY f.ID, f.NOM;
