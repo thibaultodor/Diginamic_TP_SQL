@@ -60,7 +60,6 @@ INSERT INTO ARTICLE (ID, REF, DESIGNATION, PRIX, ID_FOU) VALUES
 -- INSERTION BON
 INSERT INTO BON (ID, NUMERO, DATE_CMDE, DELAI, ID_FOU) VALUES
 (1,1,current_date,3,1);
--- Insertion du bon de commande auprès du fournisseur "Française d'Imports"
 
 -- INSERTION COMPO
 INSERT INTO COMPO (ID, ID_ART, ID_BON, QTE) VALUES
