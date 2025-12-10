@@ -1,1 +1,7 @@
-# Diginamic_TP_SQL
+# 📚 TPs SQL – Formation Diginamic
+
+Ce dépôt contient l’ensemble de mes travaux pratiques (TP) réalisés dans le cadre de mes cours de SQL à Diginamic.
+
+## 🧾 Contenu du dépôt
+
+- `tp02/` – Exercice compta
